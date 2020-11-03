@@ -48,8 +48,24 @@ i = 'aaa';  // fail as run-time error
 
 03-Nov-20
 ---------
+Build process - (ng serve)
+--------------------------
+Web - HTML, CSS, JS (Dev - TS)
+Tool - webpack - Angular CLI
 
 
+1. Transpile TS code into JS code
+2. App code is bundled. JS output
+3. Injects <script> into index.html
+4. Host the app on a web server
+
+Component
+----------
+SearchComponent
+- HTML code - .html (View)
+- CSS Stylesheet - .css (optional)
+- Data - TS class - property (categories: []) - .ts  (Model)
+- Behavior - TS class - method - .ts  (Controller)
 
 
 
