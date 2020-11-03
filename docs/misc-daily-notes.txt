@@ -11,5 +11,52 @@ Angular Notes
 - simple UI page create framework
 - create lightweight web app
 - helps reduce load time of websites
+- Object oriented programming is easy in angular 
 
-- jQuery is a library, used for DOM manipulation. It does have 2 way binding, routing, dependency injection. Angular is framework.
+- jQuery is a library, used for DOM manipulation. It does not have 2 way binding, routing, dependency injection. 
+- Angular is framework.
+- Angular we can make it to any pattern MVX as per our preference.
+
+- Framework provides host of other capabilities like Routing, DI, components etc
+
+- When we use a framework, the framework is in charge of the flow. When we use library we decide when to call the library. (IOC)
+
+https://amazon.in
+
+5          2     4    1.x
+framework, cli, cdk, angular material 
+6          6    6    6
+(bootstrap)
+
+- Dead code elimination
+
+
+UI - Angular - Angular              - Angular               - Angular / React / Vue.js
+BL - Node.js - MS.NET (Asp.net MVC) - Java (SpringBoot)     - PHP / Python
+DL - MongoDB - MS SQL Server        - Oracle / MySql Server - MySQL
+
+MS.NET, Java
+OOPL - C++, C#, Java -> TS -> JS
+
+int i = 10;
+...
+i = 'hari';
+
+var i = 10;
+...
+i = 'aaa';  // fail as run-time error
+
+03-Nov-20
+---------
+
+
+
+
+
+                     
+
+
+
+
+
+
