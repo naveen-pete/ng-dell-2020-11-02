@@ -67,8 +67,13 @@ SearchComponent
 - Data - TS class - property (categories: []) - .ts  (Model)
 - Behavior - TS class - method - .ts  (Controller)
 
-
-
+04-Nov-20
+---------
+- Bootstrap
+  1. Include a link tag to refer to Bootstrap CDN server
+  
+  2. Install Bootstrap locally
+     Make a config change - angular.json
                      
 
 
