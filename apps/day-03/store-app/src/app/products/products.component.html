@@ -1,41 +1,27 @@
 <h4>List of Products</h4>
 
-<!-- Data Binding -->
-<!-- 1. Interpolation (one-way binding) -->
-<!-- Declarative programming -->
-<div>
-  Product Name: {{ productName }}<br>
-  Price: {{ productPrice }}
-</div>
-
-<!-- 2. Property binding (one-way binding) -->
-<!-- 
-<hr>
-<div>
-  <input type="text" class="form-control" [value]="productName">
-</div> 
--->
-
-<!-- 5. Two-way data binding -->
-<hr>
-<div>
-  <input type="text" class="form-control" [(ngModel)]="productName">
-</div>
-
-<hr>
-<!-- 3. Event binding (one-way binding) -->
-<div>
-  <button class="btn btn-success" (click)="onSave()">Save</button>
-</div>
-
-<hr>
-<!-- 4. Event binding (one-way binding) -->
-<div>
-  Search:
-  <input type="text" class="form-control" placeholder="Enter search test..." (keyup)="onSearch($event)">
-</div>
-
-<hr>
-<div>
-  Festival discount of 10% available for {{ productName }}. Hurry!!
+<div class="card bg-light mb-2" style="max-width: 30rem;" *ngFor="let product of products">
+  <h5 class="card-header">{{ product.name | uppercase }}</h5>
+  <div class="card-body">
+    <p class="card-text" [ngStyle]="{ 'color': product.isAvailable ? 'blue' : 'red' }">{{ product.description }}</p>
+    <p class="card-text"><strong class="mr-2">Price:</strong> <em>{{ product.price | currency : 'USD' : 'code' }}</em>
+    </p>
+    <p class="card-text"><strong class="mr-2">Available?</strong>
+      <!-- <em class="badge" [ngClass]="{ 'badge-success': product.isAvailable, 'badge-warning': !product.isAvailable}">
+        {{ product.isAvailable ? 'Yes' : 'No' }}
+      </em> -->
+      <em class="badge" [ngClass]="product.isAvailable ? 'badge-success' : 'badge-warning'">
+        {{ product.isAvailable ? 'Yes' : 'No' }}
+      </em>
+    </p>
+    <!-- <p class="card-text"><strong class="mr-2">Available?</strong> <em>{{ showAvailability() }}</em></p> -->
+  </div>
+  <div class="card-footer text-right">
+    <button type="button" class="btn btn-outline-primary btn-sm mr-2">
+      Edit
+    </button>
+    <button type="button" class="btn btn-outline-danger btn-sm">
+      Delete
+    </button>
+  </div>
 </div>

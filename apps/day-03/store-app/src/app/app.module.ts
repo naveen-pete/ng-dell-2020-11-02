@@ -8,44 +8,15 @@ import { ProductsComponent } from './products/products.component';
 
 @NgModule({
   declarations: [
-    AppComponent, // Components, Directives, Pipes
+    AppComponent,
     HeaderComponent,
     ProductsComponent
-    // c2,
-    // c3,
-    // ...
-    // c-n
   ],
   imports: [
-    BrowserModule,    // built-in module
+    BrowserModule,
     FormsModule
-    // CustomersModule,  // custom module
-    // ProductsModule    // custom module
   ],
-  providers: [],    // Service
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-// Angular Modules - NgModules
-
-// sayHi({
-//   id: 10,
-//   name: 'Naveen',
-//   city: 'Bengaluru'
-// })
-// @NgModule()
-
-// decorator - function - provides meta information
-// C# - Attributes / Annotations
-// AOP - Aspect Oriented Programming
-// Cross-cutting Concerns
-
-var obj = {
-  id: 10,
-  name: 'Naveen',
-  city: 'Bengaluru'
-};
-
-// object - {}
-// array - []

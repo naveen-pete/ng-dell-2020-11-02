@@ -75,8 +75,16 @@ SearchComponent
   2. Install Bootstrap locally
      Make a config change - angular.json
                      
-
-
+- Directives
+  1. Attribute directives
+  - ngModel
+  - ngStyle
+  - ngClass
+  
+  2. Structural directives
+  - *ngFor
+  - *ngIf
+  - *ngSwitch
 
 
 
