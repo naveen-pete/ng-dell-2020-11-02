@@ -77,15 +77,14 @@ SearchComponent
                      
 - Directives
   1. Attribute directives
-  - ngModel
-  - ngStyle
-  - ngClass
+    - ngModel
+    - ngStyle
+    - ngClass
   
   2. Structural directives
-  - *ngFor
-  - *ngIf
-  - *ngSwitch
-
-
-
-
+    - *ngFor
+    - *ngIf
+    - *ngSwitch
+  
+05-Nov-20
+---------
