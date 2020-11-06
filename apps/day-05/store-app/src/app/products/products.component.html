@@ -1,22 +1,13 @@
 <div class="row">
 
   <div class="col-4">
-    <!-- app-product-form - custom element, addProduct - custom event -->
-    <!-- subscription -->
     <app-product-form (addProduct)="onAddProduct($event)"></app-product-form>
-
-    <!-- button - built-in element, click - built-in event -->
-    <!-- <button (click)="onSubmit($event)"></button> -->
   </div>
 
   <div class="col">
     <h4>List of Products</h4>
-    <!-- app-product-detail - custom element, product - custom attribute -->
     <app-product-detail (deleteProduct)="onDeleteProduct($event)" [product]="p" *ngFor="let p of products">
     </app-product-detail>
-
-    <!-- input - built-in element, value - built-in attribute -->
-    <!-- <input type="text" [value]="productName" > -->
   </div>
 
 </div>

@@ -86,5 +86,41 @@ SearchComponent
     - *ngIf
     - *ngSwitch
   
-05-Nov-20
+06-Nov-20
 ---------
+- Services
+
+  - ProductMgmtModule
+  1. ProductInfoComponent
+    - name, image, price, rating, seller + other info
+    - Ajax Request - HTTP request - to server REST API
+    - https://www.amazon.in/api/products/1
+    
+  2. ProductDetailComponent
+    - name, image, price, rating, seller + other info
+    - Ajax Request - HTTP request - to server REST API
+    - https://www.amazon.in/api/products/1
+
+    
+  - ShoppingCartModule
+  3. ShoppingCartComponent
+    - name, image, price, rating, seller + other info
+    - Ajax Request - HTTP request - to server REST API
+    - https://www.amazon.in/api/products/1
+    
+  - OrdersModule
+  4. OrdersComponent
+    - name, image, price, rating, seller + other info
+    - Ajax Request - HTTP request - to server REST API
+    - https://www.amazon.in/api/products/1
+    
+ MVC - Model - Data (1)
+     - View - (n)
+     
+- Issues
+  - duplicate code
+  - design issue - SRP
+  
+  Introduce a service
+  - non - UI
+  - data service

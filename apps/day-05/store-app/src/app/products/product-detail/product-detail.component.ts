@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ProductModel } from '../product.model';
 
@@ -7,13 +7,20 @@ import { ProductModel } from '../product.model';
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnChanges {
   @Input() product: ProductModel
   @Output() deleteProduct = new EventEmitter<number>();
 
-  constructor() { }
+  constructor() {
+    console.log('ProductDetailComponent constructor() invoked.');
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('ProductDetailComponent ngOnChanges() invoked.');
+  }
 
   ngOnInit(): void {
+    console.log('ProductDetailComponent ngOnInit() invoked.');
   }
 
   onDelete() {

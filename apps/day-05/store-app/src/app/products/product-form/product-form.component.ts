@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { ProductModel } from '../product.model';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-product-form',
@@ -13,16 +14,21 @@ export class ProductFormComponent implements OnInit {
   showMessage: boolean = false;
   product: ProductModel = new ProductModel();
 
-  constructor() { }
+  service: ProductsService;
+
+  constructor(service: ProductsService) {
+    this.service = service;
+  }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    this.product.id = Date.now();
+    // this.product.id = Date.now();
 
     // publish event
-    this.addProduct.emit(this.product);
+    // this.addProduct.emit(this.product);
+    this.service.addProduct(this.product);
     this.product = new ProductModel();
 
     this.showMessage = true;

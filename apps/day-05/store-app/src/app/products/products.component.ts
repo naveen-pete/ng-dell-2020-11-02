@@ -1,55 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { ProductModel } from './product.model';
+import { ProductsService } from './products.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
-  products: ProductModel[] = [
-    {
-      id: 1,
-      name: 'Samsung Galaxy S10',
-      description: 'A smart phone from Samsung',
-      price: 700000,
-      isAvailable: true
-    },
-    {
-      id: 2,
-      name: 'iPhone 12',
-      description: 'A smart phone from Apple',
-      price: 100000,
-      isAvailable: false
-    },
-    {
-      id: 3,
-      name: 'Google Pixel 4',
-      description: 'A smart phone from Google',
-      price: 60000,
-      isAvailable: true
-    }
-  ];
+export class ProductsComponent implements OnInit, OnDestroy {
+  products: ProductModel[] = [];
+  service: ProductsService;
 
-  constructor() { }
+  subUpdateProducts: Subscription;
 
-  ngOnInit(): void { }
+  constructor(service: ProductsService) {
+    this.service = service;
+  }
+
+  ngOnInit(): void {
+    this.products = this.service.getAllProducts();
+
+    this.subUpdateProducts = this.service.updateProducts.subscribe((products: ProductModel[]) => {
+      this.products = products;
+      console.log('ProductsComponent - products array updated.');
+    });
+  }
 
   onAddProduct(product: ProductModel) {
     this.products.unshift(product);
   }
 
   onDeleteProduct(productId: number) {
-    // Solution #1
-    // const index = this.products.findIndex(p => p.id === productId);
-
-    // if (index >= 0) {
-    //   this.products.splice(index, 1);
-    // }
-
-    // Solution #2
     this.products = this.products.filter(p => p.id !== productId);
+  }
+
+  ngOnDestroy() {
+    if (this.subUpdateProducts) {
+      this.subUpdateProducts.unsubscribe();
+    }
   }
 
 }
