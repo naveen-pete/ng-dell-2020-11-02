@@ -124,3 +124,7 @@ SearchComponent
   Introduce a service
   - non - UI
   - data service
+
+09-Nov-20
+---------
+Tree Shaking Providers - dead code elimination

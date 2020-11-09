@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { ProductModel } from '../product.model';
 import { ProductsService } from '../products.service';
@@ -10,15 +11,20 @@ import { ProductsService } from '../products.service';
   providers: [ProductsService]
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
-  @Input() product: ProductModel
+  id: number;
+  product: ProductModel
 
-  service: ProductsService;
+  constructor(
+    private route: ActivatedRoute,
+    private service: ProductsService
+  ) { }
 
-  constructor(service: ProductsService) {
-    this.service = service;
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((map) => {
+      this.id = +map.get('id');
+      this.product = this.service.getProduct(this.id);
+    });
   }
-
-  ngOnInit(): void { }
 
   onDelete() {
     if (confirm('Are you sure?')) {

@@ -31,6 +31,13 @@ export class ProductsService {
       description: 'A smart phone from Google',
       price: 60000,
       isAvailable: true
+    },
+    {
+      id: 4,
+      name: '1 Plus Seven',
+      description: 'A smart phone from One Plus',
+      price: 40000,
+      isAvailable: true
     }
   ];
 
@@ -41,6 +48,7 @@ export class ProductsService {
   }
 
   getProduct(id: number): ProductModel | null {
+    // AJAX Request to retrieve a single product
     const product = this.products.find(p => p.id === id);
 
     if (product) {
