@@ -23,7 +23,7 @@ console.log('begin');
 
 getUser('ram', (error, user) => {
   if (error) {
-    console.log('Error:', error);
+    console.log('error:', error);
     return;
   }
 

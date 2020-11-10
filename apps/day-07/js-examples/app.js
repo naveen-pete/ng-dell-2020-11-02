@@ -22,7 +22,7 @@ console.log('begin');
 
 getUser('ram')
   .then(user => console.log('user:', user))
-  .catch(error => console.log('Error:', error));
+  .catch(error => console.log('error:', error));
 
 console.log('perform some other operation..'); // independent of getUser() result
 
