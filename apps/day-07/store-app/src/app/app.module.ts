@@ -16,8 +16,9 @@ import { NotFoundComponent } from './common/not-found/not-found.component';
 
 // http://localhost:4200 - Home
 // http://localhost:4200/products - Products
-// http://localhost:4200/products/new - ProductForm
+// http://localhost:4200/products/new - Product Form
 // http://localhost:4200/products/1 - Product Detail
+// http://localhost:4200/products/1/edit - Product Form
 // http://localhost:4200/sign-up - Sign up
 // http://localhost:4200/login - Login
 // http://localhost:4200/abc123
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
   {
     path: 'products', component: ProductsComponent, children: [
       { path: 'new', component: ProductFormComponent },
-      { path: ':id', component: ProductDetailComponent }
+      { path: ':id', component: ProductDetailComponent },
+      { path: ':id/edit', component: ProductFormComponent }
     ]
   },
   { path: 'sign-up', component: SignUpComponent },

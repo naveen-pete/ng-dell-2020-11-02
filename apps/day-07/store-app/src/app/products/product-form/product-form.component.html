@@ -26,7 +26,13 @@
         <label for="isAvailable" class="form-check-label">Available?</label>
       </div>
 
-      <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+      <div *ngIf="isAddMode">
+        <button type="button" class="btn btn-primary" (click)="onAdd()">Add</button>
+      </div>
+
+      <div *ngIf="!isAddMode">
+        <button type="button" class="btn btn-primary" (click)="onUpdate()">Update</button>
+      </div>
     </form>
   </div>
 </div>

@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProductModel } from '../product.model';
 import { ProductsService } from '../products.service';
@@ -10,26 +11,53 @@ import { ProductsService } from '../products.service';
 })
 export class ProductFormComponent implements OnInit {
   showMessage: boolean = false;
+  isAddMode: boolean = true;
+
+  id: number;
   product: ProductModel = new ProductModel();
 
-  service: ProductsService;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private service: ProductsService
+  ) { }
 
-  constructor(service: ProductsService) {
-    this.service = service;
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((map) => {
+      this.id = +map.get('id');
+
+      if (this.id) {
+        this.product = this.service.getProduct(this.id);
+        if (!this.product) {
+          this.isAddMode = true;
+          this.product = new ProductModel();
+        } else {
+          this.isAddMode = false;
+        }
+      }
+    });
   }
 
-  ngOnInit(): void { }
+  onAdd() {
+    const product: ProductModel = {
+      ...this.product,
+      price: +this.product.price,
+      isAvailable: this.product.isAvailable || false
+    };
 
-  onSubmit() {
-    this.service.addProduct(this.product);
-    this.product = new ProductModel();
+    this.service.addProduct(product);
+    this.router.navigate(['/products']);
+  }
 
-    this.showMessage = true;
+  onUpdate() {
+    const product: ProductModel = {
+      ...this.product,
+      price: +this.product.price,
+      isAvailable: this.product.isAvailable || false
+    };
 
-    setTimeout(() => {
-      this.showMessage = false;
-    }, 4000);
-
+    this.service.updateProduct(product);
+    this.router.navigate(['/products', this.id]);
   }
 
 }

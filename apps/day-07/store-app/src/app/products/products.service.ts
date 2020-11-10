@@ -48,7 +48,6 @@ export class ProductsService {
   }
 
   getProduct(id: number): ProductModel | null {
-    // AJAX Request to retrieve a single product
     const product = this.products.find(p => p.id === id);
 
     if (product) {
@@ -61,7 +60,7 @@ export class ProductsService {
   addProduct(product: ProductModel) {
     product.id = Date.now();
 
-    this.products = [product, ...this.products];
+    this.products = [...this.products, product];
     this.updateProducts.next(this.products);
 
     this.logger.log('Product added successfully.');
@@ -76,7 +75,19 @@ export class ProductsService {
 
   // ProductForm component makes a call to this method
   updateProduct(product: ProductModel) {
-    // write code to update a specific product within the array
-    // raise updateProducts event
+    const productToUpdate = this.products.find(p => p.id === product.id);
+
+    if (productToUpdate) {
+      productToUpdate.name = product.name;
+      productToUpdate.description = product.description;
+      productToUpdate.price = product.price;
+      productToUpdate.isAvailable = product.isAvailable;
+
+      this.updateProducts.next(this.products);
+
+      this.logger.log('Product updated successfully.');
+    } else {
+      this.logger.log('Product not available for update.');
+    }
   }
 }
