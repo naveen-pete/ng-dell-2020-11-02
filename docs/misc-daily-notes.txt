@@ -128,3 +128,19 @@ SearchComponent
 09-Nov-20
 ---------
 Tree Shaking Providers - dead code elimination
+
+10-Nov-20
+---------
+Async programming in Javascript
+- Callback - JS
+- Promise - JS
+- Async/Await - JS (ES2016/2017) - Foundation of this is Promise
+- Observable - (RxJs) (Angular)
+
+- AJAX
+- XmlHttpRequest
+
+- JS Engine - single threaded environment 
+  - Chrome - V8
+
+- x-mas tree problem

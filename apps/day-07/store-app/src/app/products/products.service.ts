@@ -73,7 +73,6 @@ export class ProductsService {
     this.logger.log('Product deleted successfully.');
   }
 
-  // ProductForm component makes a call to this method
   updateProduct(product: ProductModel) {
     const productToUpdate = this.products.find(p => p.id === product.id);
 
