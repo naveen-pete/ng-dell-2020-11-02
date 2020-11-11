@@ -146,8 +146,8 @@ Async programming in Javascript
 
 - x-mas tree problem
 
-11-Nov-2020
------------
+11-Nov-20
+---------
 Firebase - BaaS offering from GCP
 
 url - https://my-store-app-6a579.firebaseio.com/store-app/products
@@ -158,9 +158,22 @@ Get a product     - HTTP GET /id
 Update a Product  - HTTP PUT/PATCH /id product
 Delete a Product  - HTTP DELETE /id
 
-{
-  "rules": {
-    ".read": "now < 1607625000000",  // 2020-12-11
-    ".write": "now < 1607625000000",  // 2020-12-11
+12-Nov-20
+---------
+- Authentication
+
+From:
+  {
+    "rules": {
+      ".read": "now < 1607625000000",  // 2020-12-11
+      ".write": "now < 1607625000000",  // 2020-12-11
+    }
   }
-}
+
+To:
+  {
+    "rules": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    }
+  }
