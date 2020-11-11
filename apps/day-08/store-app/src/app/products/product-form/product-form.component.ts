@@ -30,7 +30,6 @@ export class ProductFormComponent implements OnInit {
         this.service.getProduct(this.id).subscribe(
           (product: ProductModel) => {
             this.product = product;
-            console.log('product:', product);
             if (!this.product) {
               this.isAddMode = true;
               this.product = new ProductModel();
@@ -48,17 +47,16 @@ export class ProductFormComponent implements OnInit {
   }
 
   onAdd() {
-    const product: ProductModel = {
-      ...this.product,
-      price: +this.product.price,
-      isAvailable: this.product.isAvailable || false
-    };
+    const { name, description, price, isAvailable } = this.product;
+
+    const product = new ProductModel();
+    product.name = name;
+    product.description = description;
+    product.price = +price;
+    product.isAvailable = isAvailable || false;
 
     this.service.addProduct(product).subscribe(
-      (response) => {
-        console.log('Add product successful.');
-        console.log('response:', response);
-
+      () => {
         this.router.navigate(['/products']);
       },  // success callback
       (error) => {
@@ -69,14 +67,23 @@ export class ProductFormComponent implements OnInit {
   }
 
   onUpdate() {
-    const product: ProductModel = {
-      ...this.product,
-      price: +this.product.price,
-      isAvailable: this.product.isAvailable || false
-    };
+    const { name, description, price, isAvailable } = this.product;
 
-    this.service.updateProduct(product);
-    this.router.navigate(['/products', this.id]);
+    const product = new ProductModel();
+    product.name = name;
+    product.description = description;
+    product.price = +price;
+    product.isAvailable = isAvailable || false;
+
+    this.service.updateProduct(this.id, product).subscribe(
+      () => {
+        this.router.navigate(['/products', this.id]);
+      },  // success callback
+      (error) => {
+        console.log('Update product failed.');
+        console.log('Error:', error);
+      }   // error callback
+    );
   }
 
 }

@@ -20,30 +20,36 @@ export class ProductDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((map) => {
-      this.id = map.get('id');
-      this.service.getProduct(this.id).subscribe(
-        (product: ProductModel) => {
-          this.product = product;
-          console.log('product:', product);
-        },
-        (error) => {
-          console.log('Get product failed.');
-          console.log('Error:', error);
-        }
-      );
-    });
+    this.route.paramMap.subscribe(
+      (map) => {
+        this.id = map.get('id');
+        this.service.getProduct(this.id).subscribe(
+          (product: ProductModel) => {
+            this.product = product;
+          },
+          (error) => {
+            console.log('Get product failed.');
+            console.log('Error:', error);
+          }
+        );
+      });
   }
 
   onEdit() {
-    // http://localhost:4200/products/1/edit
     this.router.navigate(['/products', this.id, 'edit']);
   }
 
   onDelete() {
     if (confirm('Are you sure?')) {
-      this.service.deleteProduct(this.product.id);
-      this.router.navigate(['/products']);
+      this.service.deleteProduct(this.product.id).subscribe(
+        () => {
+          this.router.navigate(['/products']);
+        },
+        (error) => {
+          console.log('Delete product failed.');
+          console.log('Error:', error);
+        }
+      );
     }
   }
 
