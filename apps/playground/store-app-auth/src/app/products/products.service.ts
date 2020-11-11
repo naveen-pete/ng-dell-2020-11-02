@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
 import { ProductModel } from './product.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  private apiUrl = 'https://my-store-app-6a579.firebaseio.com/store-app/products';
+  private apiUrl = `${environment.dataApiUrl}/products`;
   updateProducts = new Subject<ProductModel[]>();
 
   private products: ProductModel[] = [];

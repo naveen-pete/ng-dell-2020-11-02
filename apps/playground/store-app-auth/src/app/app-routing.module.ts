@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Common
 import { HomeComponent } from './home/home.component';
-import { NotFoundComponent } from './common/not-found/not-found.component';
+import { NotificationComponent } from './common/notification/notification.component';
 
 // Auth
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
@@ -13,6 +13,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { ProductFormComponent } from './products/product-form/product-form.component';
+
+import { AuthGuard } from './auth/auth.guard';
 
 // http://localhost:4200 - Home
 // http://localhost:4200/products - Products
@@ -28,7 +30,16 @@ import { ProductFormComponent } from './products/product-form/product-form.compo
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   {
-    path: 'products', component: ProductsComponent, children: [
+    path: 'products', component: ProductsComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '', component: NotificationComponent, data: {
+          header: 'Note!',
+          message: 'Use \'Add\' button to create a product. Select a product to view its details.',
+          type: 'info'
+        }
+      },
       { path: 'new', component: ProductFormComponent },
       { path: ':id', component: ProductDetailComponent },
       { path: ':id/edit', component: ProductFormComponent }
@@ -36,8 +47,13 @@ const appRoutes: Routes = [
   },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
-  // { path: '**', redirectTo: '' }
-  { path: '**', component: NotFoundComponent }
+  {
+    path: '**', component: NotificationComponent, data: {
+      header: 'Sorry!',
+      message: '404 - Page not found.',
+      type: 'danger'
+    }
+  }
 ];
 
 @NgModule({
