@@ -1,7 +1,7 @@
 <p>
-  <!-- <a class="btn btn-primary" routerLink="/products/new">Add</a> -->
   <button class="btn btn-primary" (click)="onAdd()">Add</button>
 </p>
+
 <div class="list-group">
   <a class="list-group-item list-group-item-action" [routerLink]="['/products', product.id]"
     *ngFor="let product of products">

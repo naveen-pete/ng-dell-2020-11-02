@@ -10,7 +10,6 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
-  showMessage: boolean = false;
   isAddMode: boolean = true;
 
   id: string;
