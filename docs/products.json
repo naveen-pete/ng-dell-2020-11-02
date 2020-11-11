@@ -1,3 +1,4 @@
+// Data on the server
 {
   "-MLq-pNl6_Me0VU7hsE4": {
     "description": "p1 desc",
@@ -13,6 +14,7 @@
   }
 }
 
+// Data needed by the component
 [
   {
     "id": "-MLq-pNl6_Me0VU7hsE4",

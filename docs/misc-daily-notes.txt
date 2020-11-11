@@ -137,10 +137,23 @@ Async programming in Javascript
 - Async/Await - JS (ES2016/2017) - Foundation of this is Promise
 - Observable - (RxJs) (Angular)
 
-- AJAX
-- XmlHttpRequest
+- AJAX (Async JS and XML)
+  - XmlHttpRequest API (XHR) - Callback (MS)
+  - Fetch API - ES2015 - Promise
 
 - JS Engine - single threaded environment 
   - Chrome - V8
 
 - x-mas tree problem
+
+11-Nov-2020
+-----------
+Firebase - BaaS offering from GCP
+
+url - https://my-store-app-6a579.firebaseio.com/store-app/products
+
+Create Product    - HTTP POST product - HttpClient.post() - 200
+Get all products  - HTTP GET
+Get a product     - HTTP GET /id
+Update a Product  - HTTP PUT/PATCH /id product
+Delete a Product  - HTTP DELETE /id
