@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 import { ProductModel } from './product.model';
 import { LoggerService } from '../common/logger.service';
@@ -8,65 +10,69 @@ import { LoggerService } from '../common/logger.service';
   providedIn: 'root'
 })
 export class ProductsService {
+  private apiUrl = 'https://my-store-app-6a579.firebaseio.com/store-app/products';
   updateProducts = new Subject<ProductModel[]>();
 
-  private products: ProductModel[] = [
-    {
-      id: 1,
-      name: 'Samsung Galaxy S10',
-      description: 'A smart phone from Samsung',
-      price: 700000,
-      isAvailable: true
-    },
-    {
-      id: 2,
-      name: 'iPhone 12',
-      description: 'A smart phone from Apple',
-      price: 100000,
-      isAvailable: false
-    },
-    {
-      id: 3,
-      name: 'Google Pixel 4',
-      description: 'A smart phone from Google',
-      price: 60000,
-      isAvailable: true
-    },
-    {
-      id: 4,
-      name: '1 Plus Seven',
-      description: 'A smart phone from One Plus',
-      price: 40000,
-      isAvailable: true
-    }
-  ];
+  private products: ProductModel[] = [];
 
-  constructor(private logger: LoggerService) { }
+  constructor(
+    private http: HttpClient,
+    private logger: LoggerService
+  ) { }
 
-  getAllProducts(): ProductModel[] {
-    return [...this.products];
+  getAllProducts(): Observable<ProductModel[]> {
+    return this.http.get(`${this.apiUrl}.json`).pipe(
+
+      map((responseData: any) => {
+        if (!responseData) {
+          return [];
+        }
+
+        const products: ProductModel[] = [];
+        const keys = Object.keys(responseData);
+        keys.forEach((key) => {
+          const product: ProductModel = {
+            ...responseData[key],
+            id: key
+          };
+          products.push(product);
+        })
+        return products;
+      }),
+
+      tap((products: ProductModel[]) => {
+        this.products = [...products];
+      })
+    );
   }
 
-  getProduct(id: number): ProductModel | null {
-    const product = this.products.find(p => p.id === id);
-
-    if (product) {
-      return { ...product };
-    }
-
-    return null;
+  getProduct(id: string): Observable<ProductModel> {
+    return this.http.get(`${this.apiUrl}/${id}.json`)
+      .pipe(
+        map((responseData: any) => {
+          const product: ProductModel = {
+            ...responseData,
+            id: id
+          }
+          return product;
+        })
+      );
   }
 
   addProduct(product: ProductModel) {
-    product.id = Date.now();
-
-    this.products = [...this.products, product];
-    this.updateProducts.next(this.products);
-
-    this.logger.log('Product added successfully.');
+    return this.http.post(`${this.apiUrl}.json`, product).pipe(
+      tap((responseData: any) => {
+        const newProduct: ProductModel = {
+          ...product,
+          id: responseData.name
+        }
+        this.products = [...this.products, newProduct];
+        this.updateProducts.next(this.products);
+      })
+    );
   }
 
-  deleteProduct(id: number) {
+  deleteProduct(id: string) {
     this.products = this.products.filter(p => p.id !== id);
     this.updateProducts.next(this.products);
 

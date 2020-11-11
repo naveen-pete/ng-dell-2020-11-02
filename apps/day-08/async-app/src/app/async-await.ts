@@ -36,6 +36,7 @@ const getPosts = (userId) => {
   });
 }
 
+// ES7/ES2016
 export const doWork = async () => {
   try {
     const user: any = await getUser('krish');

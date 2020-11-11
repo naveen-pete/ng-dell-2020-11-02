@@ -13,7 +13,7 @@ export class ProductFormComponent implements OnInit {
   showMessage: boolean = false;
   isAddMode: boolean = true;
 
-  id: number;
+  id: string;
   product: ProductModel = new ProductModel();
 
   constructor(
@@ -24,16 +24,25 @@ export class ProductFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((map) => {
-      this.id = +map.get('id');
+      this.id = map.get('id');
 
       if (this.id) {
-        this.product = this.service.getProduct(this.id);
-        if (!this.product) {
-          this.isAddMode = true;
-          this.product = new ProductModel();
-        } else {
-          this.isAddMode = false;
-        }
+        this.service.getProduct(this.id).subscribe(
+          (product: ProductModel) => {
+            this.product = product;
+            console.log('product:', product);
+            if (!this.product) {
+              this.isAddMode = true;
+              this.product = new ProductModel();
+            } else {
+              this.isAddMode = false;
+            }
+          },
+          (error) => {
+            console.log('Get product failed.');
+            console.log('Error:', error);
+          }
+        );
       }
     });
   }
@@ -45,8 +54,18 @@ export class ProductFormComponent implements OnInit {
       isAvailable: this.product.isAvailable || false
     };
 
-    this.service.addProduct(product);
-    this.router.navigate(['/products']);
+    this.service.addProduct(product).subscribe(
+      (response) => {
+        console.log('Add product successful.');
+        console.log('response:', response);
+
+        this.router.navigate(['/products']);
+      },  // success callback
+      (error) => {
+        console.log('Add product failed.');
+        console.log('Error:', error);
+      }   // error callback
+    );
   }
 
   onUpdate() {

@@ -10,7 +10,7 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  id: number;
+  id: string;
   product: ProductModel
 
   constructor(
@@ -21,8 +21,17 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((map) => {
-      this.id = +map.get('id');
-      this.product = this.service.getProduct(this.id);
+      this.id = map.get('id');
+      this.service.getProduct(this.id).subscribe(
+        (product: ProductModel) => {
+          this.product = product;
+          console.log('product:', product);
+        },
+        (error) => {
+          console.log('Get product failed.');
+          console.log('Error:', error);
+        }
+      );
     });
   }
 

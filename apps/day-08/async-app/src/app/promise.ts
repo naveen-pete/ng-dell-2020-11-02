@@ -36,6 +36,7 @@ const getPosts = (userId) => {
   });
 }
 
+// ES6/ES2015
 export const doWork = () => {
   getUser('krish')
     .then((user: any) => {

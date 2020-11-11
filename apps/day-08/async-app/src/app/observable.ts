@@ -57,46 +57,46 @@ const getPosts = (userId: number) => {
 //     );
 // };
 
-// export const doWork = () => {
-//   getUser('hari').subscribe(
-//     (user: any) => {
-//       console.log('user:', user);
-//       getPosts(user.id).subscribe(
-//         (posts: any) => {
-//           console.log('posts for user:', posts);
-//         },
-//         (error: any) => {
-//           console.log('Error:', error);
-//         }
-//       );
-//     },
-//     (error: any) => {
-//       console.log('getUser() Error:', error);
-//     }
-//   );
-// };
-
 export const doWork = () => {
-  getUser('hari')
-    .pipe(
-      map((user: any) => {
-        console.log('map() user:', user);
-        const newUser = { ...user, name: user.name.toUpperCase() };
-        return newUser;
-      }),
-      switchMap((user: any) => {
-        console.log('switchMap() user:', user);
-        return getPosts(user.id);
-      }),
-      // operator
-      // operator
-    )
-    .subscribe(
-      (posts: any) => {
-        console.log('posts for user:', posts);
-      },
-      (error: any) => {
-        console.log('Error:', error);
-      }
-    );
+  getUser('ram').subscribe(
+    (user: any) => {
+      console.log('user:', user);
+      getPosts(user.id).subscribe(
+        (posts: any) => {
+          console.log('posts for user:', posts);
+        },
+        (error: any) => {
+          console.log('Error:', error);
+        }
+      );
+    },
+    (error: any) => {
+      console.log('getUser() Error:', error);
+    }
+  );
 };
+
+// export const doWork = () => {
+//   getUser('hari')
+//     .pipe(
+//       map((user: any) => {
+//         console.log('map() user:', user);
+//         const newUser = { ...user, name: user.name.toUpperCase() };
+//         return newUser;
+//       }),
+//       switchMap((user: any) => {
+//         console.log('switchMap() user:', user);
+//         return getPosts(user.id);
+//       }),
+//       // operator
+//       // operator
+//     )
+//     .subscribe(
+//       (posts: any) => {
+//         console.log('posts for user:', posts);
+//       },
+//       (error: any) => {
+//         console.log('Error:', error);
+//       }
+//     );
+// };
