@@ -157,3 +157,10 @@ Get all products  - HTTP GET
 Get a product     - HTTP GET /id
 Update a Product  - HTTP PUT/PATCH /id product
 Delete a Product  - HTTP DELETE /id
+
+{
+  "rules": {
+    ".read": "now < 1607625000000",  // 2020-12-11
+    ".write": "now < 1607625000000",  // 2020-12-11
+  }
+}
