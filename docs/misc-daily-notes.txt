@@ -160,6 +160,22 @@ Delete a Product  - HTTP DELETE /id
 
 12-Nov-20
 ---------
+Template driven forms
+- NgForm / Control
+  - controls - object
+  - valid / invalid - boolean
+  - dirty / pristine - boolean
+  - touched / untouched - boolean
+  - errors - object
+  - value - object
+  
+- Reactive forms
+  - Custom validators
+  
+  1. Client-side - sync validator
+  
+  2. Server-side - async validator
+  
 - Authentication
 
 From:
@@ -177,3 +193,6 @@ To:
       ".write": "auth != null"
     }
   }
+    
+Sign Up - https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
+Sign In - https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]

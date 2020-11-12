@@ -1,12 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 
-import { NotFoundComponent } from './common/not-found/not-found.component';
 import { NotificationComponent } from './common/notification/notification.component';
 import { SpinnerComponent } from './common/spinner/spinner.component';
 
@@ -27,7 +26,6 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     HeaderComponent,
 
-    NotFoundComponent,
     NotificationComponent,
     SpinnerComponent,
 
@@ -44,6 +42,7 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule
   ],

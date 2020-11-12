@@ -14,11 +14,13 @@ export class NotificationComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.data
+
     this.route.data.subscribe(
-      ({ header, message, type }) => {
-        this.header = header;
-        this.message = message;
-        this.type = type;
+      (data) => {
+        this.header = data.header;
+        this.message = data.message;
+        this.type = data.type;
       }
     );
   }

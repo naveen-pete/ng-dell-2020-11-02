@@ -10,8 +10,9 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
+  isLoading = false;
   id: string;
-  product: ProductModel
+  product: ProductModel;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,14 +23,17 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(
       (map) => {
+        this.isLoading = true;
         this.id = map.get('id');
         this.service.getProduct(this.id).subscribe(
           (product: ProductModel) => {
             this.product = product;
+            this.isLoading = false;
           },
           (error) => {
             console.log('Get product failed.');
             console.log('Error:', error);
+            this.isLoading = false;
           }
         );
       });
