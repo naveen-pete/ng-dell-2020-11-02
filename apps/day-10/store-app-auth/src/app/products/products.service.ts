@@ -22,9 +22,7 @@ export class ProductsService {
   ) { }
 
   getAllProducts(): Observable<ProductModel[]> {
-    const token = this.authService.user.token;
-
-    return this.http.get(`${this.apiUrl}.json?auth=${token}`).pipe(
+    return this.http.get(`${this.apiUrl}.json`).pipe(
       // transform server response to match component's requirements
       map((responseData: any) => {
         if (!responseData) {

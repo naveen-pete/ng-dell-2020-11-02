@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { AuthData } from './auth-data.model';
@@ -15,7 +15,9 @@ const TOKEN_EXPIRATION_TIME_IN_SEC = 600;  // 10 minutes
   providedIn: 'root'
 })
 export class AuthService {
-  user: User;
+  user = new BehaviorSubject<User>(null);
+  // user: User = null;
+  // userLoggedIn = new Subject<User>();
 
   constructor(
     private http: HttpClient,
@@ -42,6 +44,36 @@ export class AuthService {
       );
   }
 
+  autoLogin() {
+    const userData: {
+      id: string;
+      email: string;
+      _token: string;
+      _tokenExpiryDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    if (!userData) {
+      return;
+    }
+
+    const tokenExpiryDate = new Date(userData._tokenExpiryDate);
+    const user = new User(
+      userData.id,
+      userData.email,
+      userData._token,
+      tokenExpiryDate
+    );
+    if (user.token) {
+      this.user.next(user);
+    }
+  }
+
+  logout() {
+    this.user.next(null);
+    localStorage.removeItem('userData');
+    this.router.navigate(['/']);
+  }
+
   private handleAuthToken(authResponseData: AuthResponseData) {
     // Destructuring assignment (Object)
     const { localId, email, idToken, expiresIn } = authResponseData;
@@ -51,7 +83,8 @@ export class AuthService {
     const tokenExpiryDate = new Date(Date.now() + expiresInMS);
 
     const authenticatedUser = new User(localId, email, idToken, tokenExpiryDate);
-    this.user = authenticatedUser;
+    localStorage.setItem('userData', JSON.stringify(authenticatedUser));
+    this.user.next(authenticatedUser);
   }
 
   private handleError(errorResponse: HttpErrorResponse): Observable<Error> {
