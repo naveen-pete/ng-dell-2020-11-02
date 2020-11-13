@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AuthData } from '../auth-data.model';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +15,10 @@ export class LoginComponent implements OnInit {
   errorMessage: string;
   isLoading = false;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -22,12 +29,31 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    console.log('Login form submitted.');
-    console.log('form:', this.form.value);
+    this.isLoading = true;
+    this.errorMessage = null;
 
-    // make a service call
+    const authData: AuthData = {
+      email: this.form.value.email,
+      password: this.form.value.password,
+      returnSecureToken: true
+    }
 
-    this.form.reset();
+    this.authService.login(authData).subscribe(
+      () => {
+        this.isLoading = false;
+        this.router.navigate(['/products']);
+      },
+      (error: Error) => {
+        console.log('Login failed.');
+        console.log('Error:', error);
+        this.isLoading = false;
+
+        this.errorMessage = error.message;
+        window.setTimeout(() => {
+          this.errorMessage = null;
+        }, 4000);
+      }
+    );
   }
 
 }

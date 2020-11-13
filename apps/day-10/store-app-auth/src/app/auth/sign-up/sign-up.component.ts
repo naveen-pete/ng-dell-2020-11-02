@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { AuthService } from '../auth.service';
+import { AuthData } from '../auth-data.model';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -11,7 +15,10 @@ export class SignUpComponent implements OnInit {
   errorMessage: string;
   isLoading = false;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private service: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -42,12 +49,32 @@ export class SignUpComponent implements OnInit {
       return;
     }
 
-    console.log('Sign up form submitted.');
-    console.log(this.form.value);
+    const authData: AuthData = {
+      email: this.form.value.email,
+      password: this.form.value.password,
+      returnSecureToken: true
+    };
 
-    // make a service call
+    this.isLoading = true;
+    this.service.signUp(authData).subscribe(
+      () => {
+        this.router.navigate(['/products']);
+        this.isLoading = false;
+      },
+      (error: Error) => {
+        console.log('User sign up failed.');
+        console.log('Error:', error);
 
-    this.form.reset();
+        this.isLoading = false;
+
+        this.errorMessage = error.message;
+        window.setTimeout(() => {
+          this.errorMessage = null;
+        }, 4000);
+      }
+    );
+
+    // this.form.reset();
   }
 
 }

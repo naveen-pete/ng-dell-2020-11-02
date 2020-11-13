@@ -5,6 +5,7 @@ import { map, tap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { ProductModel } from './product.model';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,13 @@ export class ProductsService {
 
   constructor(
     private http: HttpClient,
+    private authService: AuthService
   ) { }
 
   getAllProducts(): Observable<ProductModel[]> {
-    return this.http.get(`${this.apiUrl}.json`).pipe(
+    const token = this.authService.user.token;
+
+    return this.http.get(`${this.apiUrl}.json?auth=${token}`).pipe(
       // transform server response to match component's requirements
       map((responseData: any) => {
         if (!responseData) {

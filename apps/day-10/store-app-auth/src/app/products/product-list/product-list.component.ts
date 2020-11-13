@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -32,7 +33,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.products = products;
         this.isLoading = false;
       },  // success callback
-      (error) => {
+      (error: HttpErrorResponse) => {
         console.log('Get all products failed.');
         console.log('Error:', error);
         this.isLoading = false;
