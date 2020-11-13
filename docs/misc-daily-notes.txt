@@ -199,4 +199,13 @@ Sign In - https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?
 
 13-Nov-20
 ---------
+- Authentication
+  - Token
+    - 
+    User    Logged In    Not Logged In
+Home           Y              Y
+Products       Y              N
+Sign Up        N              Y
+Login          N              Y
+Logout         Y              N
 
