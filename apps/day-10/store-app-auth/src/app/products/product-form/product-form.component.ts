@@ -10,7 +10,9 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
-  isAddMode: boolean = true;
+  isLoading = false;
+  isSaving = false;
+  isAddMode = true;
 
   id: string;
   product: ProductModel = new ProductModel();
@@ -26,6 +28,7 @@ export class ProductFormComponent implements OnInit {
       this.id = map.get('id');
 
       if (this.id) {
+        this.isLoading = true;
         this.service.getProduct(this.id).subscribe(
           (product: ProductModel) => {
             this.product = product;
@@ -35,10 +38,12 @@ export class ProductFormComponent implements OnInit {
             } else {
               this.isAddMode = false;
             }
+            this.isLoading = false;
           },
           (error) => {
             console.log('Get product failed.');
             console.log('Error:', error);
+            this.isLoading = false;
           }
         );
       }
@@ -54,13 +59,16 @@ export class ProductFormComponent implements OnInit {
     product.price = +price;
     product.isAvailable = isAvailable || false;
 
+    this.isSaving = true;
     this.service.addProduct(product).subscribe(
       () => {
+        this.isSaving = false;
         this.router.navigate(['/products']);
       },  // success callback
       (error) => {
         console.log('Add product failed.');
         console.log('Error:', error);
+        this.isSaving = false;
       }   // error callback
     );
   }
@@ -74,13 +82,16 @@ export class ProductFormComponent implements OnInit {
     product.price = +price;
     product.isAvailable = isAvailable || false;
 
+    this.isSaving = true;
     this.service.updateProduct(this.id, product).subscribe(
       () => {
+        this.isSaving = false;
         this.router.navigate(['/products', this.id]);
       },  // success callback
       (error) => {
         console.log('Update product failed.');
         console.log('Error:', error);
+        this.isSaving = false;
       }   // error callback
     );
   }

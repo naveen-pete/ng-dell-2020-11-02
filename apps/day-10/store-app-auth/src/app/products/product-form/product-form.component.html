@@ -1,39 +1,46 @@
-<h4>Product Form</h4>
+<div class="mb-2" *ngIf="!isLoading">
+  <h4>{{ isAddMode ? 'Add' : 'Update'}} Product</h4>
 
-<div class="card bg-light">
-  <div class="card-body">
-    <form>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input class="form-control" type="text" id="name" name="name" placeholder="Enter name"
-          [(ngModel)]="product.name" />
-      </div>
+  <div class="card bg-light">
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input class="form-control" type="text" id="name" name="name" placeholder="Enter name"
+            [(ngModel)]="product.name" />
+        </div>
 
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea class="form-control" rows="3" placeholder="Enter description" id="description" name="description"
-          [(ngModel)]="product.description"></textarea>
-      </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" rows="3" placeholder="Enter description" id="description" name="description"
+            [(ngModel)]="product.description"></textarea>
+        </div>
 
-      <div class="form-group">
-        <label for="price">Price</label>
-        <input class="form-control" type="text" id="price" name="price" placeholder="Enter price"
-          [(ngModel)]="product.price" />
-      </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input class="form-control" type="text" id="price" name="price" placeholder="Enter price"
+            [(ngModel)]="product.price" />
+        </div>
 
-      <div class="form-group form-check">
-        <input type="checkbox" id="isAvailable" name="isAvailable" class="form-check-input" value="true"
-          [(ngModel)]="product.isAvailable" />
-        <label for="isAvailable" class="form-check-label">Available?</label>
-      </div>
+        <div class="form-group form-check">
+          <input type="checkbox" id="isAvailable" name="isAvailable" class="form-check-input" value="true"
+            [(ngModel)]="product.isAvailable" />
+          <label for="isAvailable" class="form-check-label">Available?</label>
+        </div>
 
-      <div *ngIf="isAddMode">
-        <button type="button" class="btn btn-primary" (click)="onAdd()">Add</button>
-      </div>
+        <div *ngIf="isAddMode && !isSaving">
+          <button type="button" class="btn btn-primary" (click)="onAdd()">Add</button>
+        </div>
 
-      <div *ngIf="!isAddMode">
-        <button type="button" class="btn btn-primary" (click)="onUpdate()">Update</button>
-      </div>
-    </form>
+        <div *ngIf="!isAddMode && !isSaving">
+          <button type="button" class="btn btn-primary" (click)="onUpdate()">Update</button>
+        </div>
+
+        <app-spinner *ngIf="isSaving"></app-spinner>
+
+      </form>
+    </div>
   </div>
 </div>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

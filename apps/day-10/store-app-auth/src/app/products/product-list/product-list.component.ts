@@ -11,6 +11,7 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
+  isLoading = false;
   products: ProductModel[] = [];
 
   subUpdateProducts: Subscription;
@@ -21,19 +22,22 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.subUpdateProducts = this.service.updateProducts.subscribe((products: ProductModel[]) => {
+      this.products = products;
+    });
+
+    this.isLoading = true;
     this.service.getAllProducts().subscribe(
       (products: ProductModel[]) => {
         this.products = products;
+        this.isLoading = false;
       },  // success callback
       (error) => {
         console.log('Get all products failed.');
         console.log('Error:', error);
+        this.isLoading = false;
       }   // error callback
     );
-
-    this.subUpdateProducts = this.service.updateProducts.subscribe((products: ProductModel[]) => {
-      this.products = products;
-    });
   }
 
   onAdd() {
