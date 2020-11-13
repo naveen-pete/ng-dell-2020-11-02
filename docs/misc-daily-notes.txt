@@ -196,3 +196,7 @@ To:
     
 Sign Up - https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
 Sign In - https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
+
+13-Nov-20
+---------
+
